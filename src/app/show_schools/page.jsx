@@ -42,7 +42,7 @@ export default function ShowSchools() {
 
 	return (
 		<div className="bg-gradient-to-r from-blue-50 to-indigo-100 min-h-screen flex items-center justify-center ">
-			<div className="max-w-7xl mx-auto p-6 bg-white rounded-lg shadow-md">
+			<div className="w-4/5 h-[90vh] mx-auto p-6 bg-white rounded-lg shadow-md overflow-y-auto">
 				<h1 className="text-3xl font-bold mb-8 text-center text-gray-900">
 					Schools
 				</h1>
@@ -53,7 +53,7 @@ export default function ShowSchools() {
 							className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300"
 						>
 							<img
-								src={school.image || "/placeholder-image.png"}
+								src={school.image ? `/schoolImages/${school.image}` : "/placeholder-image.png"}
 								alt={school.name}
 								className="w-full h-48 object-cover"
 							/>
