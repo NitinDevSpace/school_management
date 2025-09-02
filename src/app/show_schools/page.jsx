@@ -41,9 +41,11 @@ export default function ShowSchools() {
 	}
 
 	return (
-		<div className="bg-gradient-to-r from-blue-50 to-indigo-100 min-h-screen">
+		<div className="bg-gradient-to-r from-blue-50 to-indigo-100 min-h-screen flex items-center justify-center ">
 			<div className="max-w-7xl mx-auto p-6 bg-white rounded-lg shadow-md">
-				<h1 className="text-3xl font-bold mb-8 text-center text-gray-900">Schools</h1>
+				<h1 className="text-3xl font-bold mb-8 text-center text-gray-900">
+					Schools
+				</h1>
 				<div className="grid gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
 					{schools.map((school) => (
 						<div
@@ -56,7 +58,9 @@ export default function ShowSchools() {
 								className="w-full h-48 object-cover"
 							/>
 							<div className="p-4">
-								<h2 className="text-xl font-semibold mb-2 text-gray-900">{school.name}</h2>
+								<h2 className="text-xl font-semibold mb-2 text-gray-900">
+									{school.name}
+								</h2>
 								<p className="text-gray-900">{school.address}</p>
 								<p className="text-gray-900">{school.city}</p>
 							</div>

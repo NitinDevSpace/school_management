@@ -12,12 +12,20 @@ export default function AddSchool() {
 
   const onSubmit = async (data) => {
     try {
+      const formData = new FormData();
+      formData.append('name', data.name);
+      formData.append('address', data.address);
+      formData.append('city', data.city);
+      formData.append('state', data.state);
+      formData.append('contact', data.contact);
+      formData.append('email_id', data.email);
+      if (data.image && data.image[0]) {
+        formData.append('image', data.image[0]);
+      }
+
       const response = await fetch('/api/add_school', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
+        body: formData,
       });
       if (!response.ok) {
         throw new Error('Failed to add school');
@@ -41,8 +49,9 @@ export default function AddSchool() {
             <input
               id="name"
               type="text"
+              placeholder="Enter school name"
               {...register('name', { required: 'Name is required' })}
-              className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 ${
+              className={`mt-1 block w-full rounded-md border-gray-300 bg-gray-50 text-gray-900 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 px-3 py-2 ${
                 errors.name ? 'border-red-500' : ''
               }`}
             />
@@ -58,8 +67,9 @@ export default function AddSchool() {
             <input
               id="address"
               type="text"
+              placeholder="Enter address"
               {...register('address', { required: 'Address is required' })}
-              className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 ${
+              className={`mt-1 block w-full rounded-md border-gray-300 bg-gray-50 text-gray-900 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 px-3 py-2 ${
                 errors.address ? 'border-red-500' : ''
               }`}
             />
@@ -76,8 +86,9 @@ export default function AddSchool() {
               <input
                 id="city"
                 type="text"
+                placeholder="Enter city"
                 {...register('city', { required: 'City is required' })}
-                className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 ${
+                className={`mt-1 block w-full rounded-md border-gray-300 bg-gray-50 text-gray-900 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 px-3 py-2 ${
                   errors.city ? 'border-red-500' : ''
                 }`}
               />
@@ -93,8 +104,9 @@ export default function AddSchool() {
               <input
                 id="state"
                 type="text"
+                placeholder="Enter state"
                 {...register('state', { required: 'State is required' })}
-                className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 ${
+                className={`mt-1 block w-full rounded-md border-gray-300 bg-gray-50 text-gray-900 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 px-3 py-2 ${
                   errors.state ? 'border-red-500' : ''
                 }`}
               />
@@ -111,8 +123,9 @@ export default function AddSchool() {
             <input
               id="contact"
               type="text"
+              placeholder="Enter contact number"
               {...register('contact', { required: 'Contact is required' })}
-              className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 ${
+              className={`mt-1 block w-full rounded-md border-gray-300 bg-gray-50 text-gray-900 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 px-3 py-2 ${
                 errors.contact ? 'border-red-500' : ''
               }`}
             />
@@ -128,6 +141,7 @@ export default function AddSchool() {
             <input
               id="email"
               type="email"
+              placeholder="Enter email address"
               {...register('email', {
                 required: 'Email is required',
                 pattern: {
@@ -136,7 +150,7 @@ export default function AddSchool() {
                   message: 'Invalid email address',
                 },
               })}
-              className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 ${
+              className={`mt-1 block w-full rounded-md border-gray-300 bg-gray-50 text-gray-900 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 px-3 py-2 ${
                 errors.email ? 'border-red-500' : ''
               }`}
             />
@@ -147,15 +161,23 @@ export default function AddSchool() {
 
           <div>
             <label htmlFor="image" className="block text-sm font-medium text-gray-900">
-              Image URL
+              Upload file<span className="text-red-500">*</span>
             </label>
             <input
               id="image"
-              type="url"
-              {...register('image')}
-              placeholder="https://example.com/image.jpg"
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+              type="file"
+              {...register('image', { required: 'Image is required' })}
+              accept="image/*"
+              className="mt-1 block w-full text-sm text-gray-700 
+                         file:mr-4 file:py-2 file:px-4
+                         file:rounded-md file:border-0
+                         file:text-sm file:font-semibold
+                         file:bg-indigo-600 file:text-white
+                         hover:file:bg-indigo-700"
             />
+            {errors.image && (
+              <p className="text-red-500 text-sm mt-1">{errors.image.message}</p>
+            )}
           </div>
 
           <button
